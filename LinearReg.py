@@ -38,12 +38,15 @@ class LinearReg:
         y_vars = data.columns[len(data.columns)-1:]
         X = pd.DataFrame(data, columns = X_vars)
         y = pd.DataFrame(data, columns = y_vars)
+        # print(X.head())
         self._mean  = X.mean()
         self._std = X.std()
         X = (X - self._mean)/self._std
         X['one'] = np.ones((X.shape[0],1))
+        # print(X.head())
         a=X_vars.insert(0,'one') 
         X = X[a]
+        # print(X.head())
         self.theta = np.zeros((X.shape[1],1))
         self.train_x = X
         self.train_y = y

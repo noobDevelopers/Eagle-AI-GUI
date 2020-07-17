@@ -148,6 +148,8 @@ class TrainWindow:
         self.val_df = val_df
         self.test_df = test_df
 
+        self.linear_model = None
+
         self.frame1 = tk.Frame(master=self.window,relief=tk.SUNKEN, width=200, height=600)
         self.frame1.grid(row=0, column=0, padx=8)
         self.frame2 = tk.Frame(master=self.window,relief=tk.SUNKEN, width=800, height=600)
@@ -197,6 +199,9 @@ class TrainWindow:
                                         mode='determinate',
                                         length=100)
         self.progress.pack(pady=8)
+        self.save_btn = tk.Button(master=self.frame5, text="SAVE MODEL", bg='green', fg='white', command=self.save_model)
+        self.save_btn.pack(pady=8)
+        self.save_btn['state'] = "disabled"
 
         
         
@@ -274,6 +279,7 @@ class TrainWindow:
 
 
     def start_train(self):
+        self.save_btn['state'] = "disabled"
         flag = 0
         try:
             algo = self.algos.get()
@@ -295,6 +301,9 @@ class TrainWindow:
                     linear_reg.theta = linear_reg.theta - alpha*linear_reg._gradient(linear_reg.train_x, linear_reg.train_y, linear_reg.theta, lambd)
                     self.progress['value'] = int((t/epoch)*100)
                     self.frame5.update_idletasks() 
+                # print(linear_reg.theta)
+                # print(linear_reg.train_x.head())
+
 
                 y_predic = np.dot(linear_reg.test_x, linear_reg.theta)
                 y_predic = pd.DataFrame(y_predic)
@@ -309,8 +318,11 @@ class TrainWindow:
 
                 mse = linear_reg.cal_mse(linear_reg.test_y, y_predic)
                 self.mse_label['text'] = f"Mean Squared Error:{mse}"
+
+                self.linear_model = linear_reg
                 
             messagebox.showinfo('Success','Model Trained Successfully!!')
+            self.save_btn['state'] = "normal"
         except:
             if flag == 0:
                 messagebox.showerror('Error', 'Model Training Failed(Check your hyperparameters and Input Files)')
@@ -318,13 +330,33 @@ class TrainWindow:
                 self.epoch_list = []
                 self.r2_label['text'] = "R-Squared:Failed"
                 self.rmse_label['text'] = "Root Mean Squared Error:Failed"
-                self.mse_label['text'] = "Mean Squared Error:Failed"
+                self.mse_label['text'] = "Mean Squared Error:Failed"               
             else:
                 messagebox.showerror('Error', 'Model Performace Analysis Failed')
                 self.r2_label['text'] = "R-Squared:Failed"
                 self.rmse_label['text'] = "Root Mean Squared Error:Failed"
                 self.mse_label['text'] = "Mean Squared Error:Failed"
+                self.save_btn['state'] = "normal"
 
+    def get_filename(self,location):
+
+        file_list = location.split('/')
+        return file_list[len(file_list)-1]
+
+    def save_model(self):
+        
+        export_file_path = tk.filedialog.asksaveasfilename(defaultextension='.csv')
+        if(len(export_file_path)!=0):
+            file_name = self.get_filename(export_file_path)
+            second_file = export_file_path[0:export_file_path.find(file_name)]
+            second_file = second_file+f'normalization(mean)_{file_name}'
+            third_file = export_file_path[0:export_file_path.find(file_name)]
+            third_file = third_file+f'normalization(std)_{file_name}'
+
+            pd.DataFrame(self.linear_model.theta).to_csv(export_file_path, index=False, header=False)
+            self.linear_model._mean.to_csv(second_file,header=False)
+            self.linear_model._std.to_csv(third_file,header=False)
+        
 
 # --- main ---
 
