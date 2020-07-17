@@ -20,27 +20,29 @@
 ## Usage Guide
 * Linear Regression
 
-  <a>
-    <img src="./img/1.png" width="300" height ="300"/>
-  </a>
+
   
   **Step-1:** This is first screen that will appear when the program is executed, load in your Training set, DEV set and Test set and press initialize.
   
-  **Note->**
-  * **You must load in only .csv, .xls or .xlsx file** 
-  * **Columns of the file uploaded will be used as parameters(features)**
-  * **Column of one is added automatically by the application and it should not be present in original file**
-  * **It is considered a good practice to have different test and Dev(cross validation) set but same file can be uploaded in both**
-    <br>
+    <a>
+    <img src="./img/1.png" width="300" height ="300"/>
+  </a>
+  
+    **Note->**
+    * **You must load in only .csv, .xls or .xlsx file** 
+    * **Columns of the file uploaded will be used as parameters(features)**
+    * **Column of one is added automatically by the application and it should not be present in original file**
+    * **It is considered a good practice to have different test and Dev(cross validation) set but same file can be uploaded in both**
+
+    
+    
+  **Step-2:** After Initialization this screen will appear, from the dropdown list choose "Linear Regression" fill in the hyper parameters than
+    press "START TRAINING".
     
     <a>
     <img src="./img/3.png" width="500" height ="200"/>
     </a>
-    <br>
-    
-    **Step-2:** After Initialization this screen will appear, from the dropdown list choose "Linear Regression" fill in the hyper parameters than
-      press "START TRAINING".
-    
+
     **Progress Bar below "START TRAINING" button denotes the progress in model training.**
     
     **Step-3:** After the training is finished a pop-up message will appear stating the successfull completion of model training. 
