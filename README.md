@@ -15,7 +15,7 @@
   </p>
 <br>
   
-### Installation
+## Installation
   ...
 ## Usage Guide
 * Linear Regression
