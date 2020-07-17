@@ -37,6 +37,7 @@
     <img src="./img/3.png" width="500" height ="200"/>
     </a>
     <br>
+    
     **Step-2:** After Initialization this screen will appear, from the dropdown list choose "Linear Regression" fill in the hyper parameters than
       press "START TRAINING".
     
