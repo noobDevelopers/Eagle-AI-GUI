@@ -24,7 +24,7 @@
     <img src="./img/1.png" width="300" height ="300"/>
   </a>
   
-  This is first screen that will appear when the program is executed, load in your Training set, DEV set and Test set and press initialize.
+  **Step-1:** This is first screen that will appear when the program is executed, load in your Training set, DEV set and Test set and press initialize.
   
   **Note->**
   * **You must load in only .csv, .xls or .xlsx file** 
@@ -37,12 +37,12 @@
     <img src="./img/3.png" width="500" height ="200"/>
     </a>
     <br>
-    After Initialization this screen will appear, from the dropdown list choose "Linear Regression" fill in the hyper parameters than
-    press "START TRAINING".
+    **Step-2:** After Initialization this screen will appear, from the dropdown list choose "Linear Regression" fill in the hyper parameters than
+      press "START TRAINING".
     
     **Progress Bar below "START TRAINING" button denotes the progress in model training.**
     
-    After the training is finished a pop-up message will appear stating the successfull completion of model training. 
+    **Step-3:** After the training is finished a pop-up message will appear stating the successfull completion of model training. 
     
     Image below shows the state after model training is finished successfully
     
