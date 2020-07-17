@@ -31,11 +31,12 @@
   * **Columns of the file uploaded will be used as parameters(features)**
   * **Column of one is added automatically by the application and it should not be present in original file**
   * **It is considered a good practice to have different test and Dev(cross validation) set but same file can be uploaded in both**
-  
+    <br>
+    
     <a>
     <img src="./img/3.png" width="500" height ="200"/>
     </a>
-    
+    <br>
     After Initialization this screen will appear, from the dropdown list choose "Linear Regression" fill in the hyper parameters than
     press "START TRAINING".
     
