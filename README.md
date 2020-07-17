@@ -12,5 +12,10 @@
   <a>
     <img src="./eagle2.png"/>
   </a>
+  </p>
 <br>
-
+  
+### Installation
+  ...
+## Usage Guide
+* Linear Regression
