@@ -28,7 +28,7 @@
 ## Usage Guide
 * Linear Regression
 
-  **Sample file is samples/Linear Regression**
+  **Sample file is in samples/Linear Regression directory**
 
   
   **Step-1:** This is first screen that will appear when the program is executed, load in your Training set, DEV set and Test set and press initialize.
