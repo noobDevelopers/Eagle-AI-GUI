@@ -81,5 +81,13 @@
     press *START TRAINING*.
     
     <a>
-    <img src="./img/2.png" width="500" height ="200"/>
+    <img src="./img/4.png" width="500" height ="200"/>
+    </a>
+    
+   **Step-3:** After the training is finished a pop-up message will appear stating the successfull completion of model training. 
+    
+    To save the model press *SAVE MODEL* this will export three files one containing parameters and other two containing normalization factors
+    
+    <a>
+    <img src="./img/5.png" width="500" height ="200"/>
     </a>
