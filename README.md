@@ -26,7 +26,7 @@
   
   **Step-5:** type *python main.py* and hit enter to start the application
 ## Usage Guide
-* **Linear Regression**
+* <ins>**Linear Regression**</ins>
 
   **Sample file is in samples/Linear Regression directory**
   
@@ -63,7 +63,7 @@
     <img src="./img/3.png" width="500" height ="200"/>
     </a>
  
-* **Logistic Regression**
+* <ins>**Logistic Regression**</ins>
  
   **Sample file is in samples/Logistic Regression directory**
   
