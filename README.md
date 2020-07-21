@@ -22,14 +22,14 @@
   
   **Step-3:** open the path where files are extracted in terminal
   
-  **Step-4:** type 'pip install -r requirements.txt' and hit enter in terminal
+  **Step-4:** type *pip install -r requirements.txt* and hit enter in terminal
   
-  **Step-5:** type 'python main.py' and hit enter to start the application
+  **Step-5:** type *python main.py* and hit enter to start the application
 ## Usage Guide
 * Linear Regression
 
   **Sample file is in samples/Linear Regression directory**
-
+  
   
   **Step-1:** This is first screen that will appear when the program is executed, load in your Training set, DEV set and Test set and press initialize.
   
@@ -62,4 +62,9 @@
     <a>
     <img src="./img/3.png" width="500" height ="200"/>
     </a>
+ 
+ * Logistic Regression
+ 
+  **Sample file is in samples/Logistic Regression directory**
   
+  **Step-1:** *Same as in Linear Regression*
