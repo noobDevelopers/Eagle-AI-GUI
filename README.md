@@ -115,6 +115,7 @@
     * **hyper parameters *Beta1* and *Beta2* are for Adam optimization with default value=0.9,0.999(leave it empty for other optimizations)**
     * **example for layer input *5,2,1* last layer(output layer) should be 1 and each layer should be seperated by comma**
     
+    
     <a>
     <img src="./img/6.png" width="500" height ="200"/>
     </a>
