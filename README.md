@@ -116,7 +116,7 @@
     * **example for layer input *5,2,1* last layer(output layer) should be 1 and each layer should be seperated by comma**
     
     <a>
-    <img src="./img/4.png" width="500" height ="200"/>
+    <img src="./img/6.png" width="500" height ="200"/>
     </a>
     
   **Step-3:** After the training is finished a pop-up message will appear stating the successfull completion of model training. 
@@ -124,5 +124,5 @@
     To save the model press *SAVE MODEL* this will export three files one containing parameters and other two containing normalization factors
     
     <a>
-    <img src="./img/5.png" width="500" height ="200"/>
+    <img src="./img/7.png" width="500" height ="200"/>
     </a>
