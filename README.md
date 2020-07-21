@@ -26,7 +26,7 @@
   
   **Step-5:** type *python main.py* and hit enter to start the application
 ## Usage Guide
-* Linear Regression
+* **Linear Regression**
 
   **Sample file is in samples/Linear Regression directory**
   
@@ -63,8 +63,23 @@
     <img src="./img/3.png" width="500" height ="200"/>
     </a>
  
- * Logistic Regression
+* **Logistic Regression**
  
   **Sample file is in samples/Logistic Regression directory**
   
   **Step-1:** *Same as in Linear Regression*
+  
+  **Note->**
+    * **You must load in only .csv, .xls or .xlsx file** 
+    * **Columns of the file uploaded will be used as parameters(features)**
+    * **Column of one is added by the application and it should not be present in original file**
+    * **It is considered a good practice to have different test and Dev(cross validation) set but same file can be uploaded in both**
+    * **Normalization is applied automatically by the application**
+    * **Multi-Class classification is not supported(currently) so y column should have only zeros or one**
+    
+  **Step-2:** After Initialization this screen will appear, from the dropdown list choose "Logistic Regression" fill in the *hyper parameters* than
+    press *START TRAINING*.
+    
+    <a>
+    <img src="./img/2.png" width="500" height ="200"/>
+    </a>
