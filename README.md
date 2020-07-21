@@ -50,7 +50,7 @@
     press "START TRAINING".
     
     <a>
-    <img src="./img/3.png" width="500" height ="200"/>
+    <img src="./img/2.png" width="500" height ="200"/>
     </a>
 
     **Progress Bar below "START TRAINING" button denotes the progress in model training.**
@@ -60,6 +60,6 @@
     Image below shows the state after model training is finished successfully
     
     <a>
-    <img src="./img/2.png" width="500" height ="200"/>
+    <img src="./img/3.png" width="500" height ="200"/>
     </a>
   
