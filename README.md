@@ -27,7 +27,8 @@
   **Step-5:** type 'python main.py' and hit enter to start the application
 ## Usage Guide
 * Linear Regression
-  **Sample files is samples/Linear Regression**
+
+  **Sample file is samples/Linear Regression**
 
   
   **Step-1:** This is first screen that will appear when the program is executed, load in your Training set, DEV set and Test set and press initialize.
