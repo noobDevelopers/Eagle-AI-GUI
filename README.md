@@ -16,10 +16,19 @@
 <br>
   
 ## Installation
-  ...
+  **Step-1:** Download and extract the files
+  
+  **Step-2:** <a href='https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/26/python-virtual-env/'>Create a virtual enviroment</a>(optional)
+  
+  **Step-3:** open the path where files are extracted in terminal
+  
+  **Step-4:** type 'pip install -r requirements.txt' and hit enter in terminal
+  
+  **Step-5:** type 'python main.py' and hit enter to start the application
 ## Usage Guide
 * Linear Regression
 
+  **Sample file is in samples/Linear Regression directory**
 
   
   **Step-1:** This is first screen that will appear when the program is executed, load in your Training set, DEV set and Test set and press initialize.
@@ -31,8 +40,9 @@
     **Note->**
     * **You must load in only .csv, .xls or .xlsx file** 
     * **Columns of the file uploaded will be used as parameters(features)**
-    * **Column of one is added automatically by the application and it should not be present in original file**
+    * **Column of one is added by the application and it should not be present in original file**
     * **It is considered a good practice to have different test and Dev(cross validation) set but same file can be uploaded in both**
+    * **Normalization is applied automatically by the application**
 
     
     
