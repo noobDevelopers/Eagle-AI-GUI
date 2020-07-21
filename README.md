@@ -14,6 +14,10 @@
   </a>
   </p>
 <br>
+
+## Intended audience
+  This application is made for learners to visualize how changing different hyper-parameters could affect accuracy of your model.
+  This applications is can also be used for selecting the base model of a large project
   
 ## Installation
   **Step-1:** Download and extract the files
