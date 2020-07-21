@@ -46,8 +46,8 @@
 
     
     
-  **Step-2:** After Initialization this screen will appear, from the dropdown list choose "Linear Regression" fill in the hyper parameters than
-    press "START TRAINING".
+  **Step-2:** After Initialization this screen will appear, from the dropdown list choose "Linear Regression" fill in the *hyper parameters* than
+    press *START TRAINING*.
     
     <a>
     <img src="./img/2.png" width="500" height ="200"/>
@@ -57,7 +57,7 @@
     
     **Step-3:** After the training is finished a pop-up message will appear stating the successfull completion of model training. 
     
-    Image below shows the state after model training is finished successfully
+    To save the model press *SAVE MODEL* this will export three files one containing parameters and other two containing normalization factors
     
     <a>
     <img src="./img/3.png" width="500" height ="200"/>
