@@ -26,7 +26,7 @@
   
   **Step-5:** type *python main.py* and hit enter to start the application
   
-**Note->In windows iapplication may show not responding, just leave it idle for few seconds**   
+# Note->In windows application may show not responding, just leave it idle for few seconds  
   
 ## Usage Guide
 * <ins>**Linear Regression**</ins>
