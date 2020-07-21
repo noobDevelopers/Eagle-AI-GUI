@@ -25,6 +25,9 @@
   **Step-4:** type *pip install -r requirements.txt* and hit enter in terminal
   
   **Step-5:** type *python main.py* and hit enter to start the application
+  
+**Note->In windows iapplication may show not responding, just leave it idle for few seconds**   
+  
 ## Usage Guide
 * <ins>**Linear Regression**</ins>
 
