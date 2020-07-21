@@ -1,5 +1,7 @@
 from LinearReg import LinearReg
 from LogisticReg import LogisticReg
+from DeepNeural import DeepNeuralNet
+from DeepUtils import initialize_parameters,forward_propagation,compute_cost,backward_propagation,predict
 import tkinter as tk
 from tkinter import *
 from PIL import Image, ImageTk
@@ -17,6 +19,7 @@ from matplotlib import style
 style.use('ggplot')
 import threading
 import numpy as np
+import csv
 
 class InitializeWindow:
 
@@ -141,6 +144,12 @@ class TrainWindow:
         self.epoch_entry = None
         self.alpha_entry = None
         self.lambda_entry = None
+        self.opt_entry = None
+        self.batch_entry = None
+        self.beta_entry = None
+        self.beta1_entry = None
+        self.beta2_entry = None
+        self.layer_entry = None
 
         self.epoch_list = []
         self.cost_list = []
@@ -151,8 +160,11 @@ class TrainWindow:
 
         self.linear_model = None
         self.logistic_model = None
+        self.deepnet_model = None
 
         self.thresh = None
+
+        self.param = None
 
         self.frame1 = tk.Frame(master=self.window,relief=tk.SUNKEN, width=200, height=600)
         self.frame1.grid(row=0, column=0, padx=8)
@@ -173,7 +185,7 @@ class TrainWindow:
         self.algos = ttk.Combobox(master=self.frame4,
                                     height=40,
                                     
-                                    values=['Linear Regression', 'Logistic Regression'],
+                                    values=['Linear Regression', 'Logistic Regression', 'Deep Neural Network'],
                                     state='readonly',
                                     )
         self.algos.bind("<<ComboboxSelected>>", self.load_gui)
@@ -217,20 +229,32 @@ class TrainWindow:
         if self.algos.get() == 'Logistic Regression':
             self.load_gui_logistic()
 
+        if self.algos.get() == 'Deep Neural Network':
+            self.load_gui_deepnet()
+
     def clear(self):
         self.epoch_entry = None
         self.alpha_entry = None
         self.lambda_entry = None
+        self.opt_entry = None
+        self.batch_entry = None
+        self.beta_entry = None
+        self.beta1_entry = None
+        self.beta2_entry = None
+        self.layer_entry = None
 
         self.epoch_list = []
         self.cost_list = []
 
         self.linear_model = None
         self.logistic_model = None
+        self.deepnet_model = None
 
         self.save_btn['state'] = "disabled"
 
         self.thresh = None
+
+        self.param = None
 
         for widget in self.frame1.winfo_children():
             widget.destroy()
@@ -242,13 +266,13 @@ class TrainWindow:
         
         self.clear()
         #frame 1
-        self.frame1.rowconfigure(0,weight=3,minsize=100)
-        self.frame1.rowconfigure(1,weight=1,minsize=50)
-        self.frame1.rowconfigure(2,weight=1,minsize=50)
-        self.frame1.rowconfigure(3,weight=1,minsize=50)
-        self.frame1.rowconfigure(4,weight=1,minsize=50)
-        self.frame1.rowconfigure(5,weight=1,minsize=50)
-        self.frame1.rowconfigure(6,weight=1,minsize=50)
+        # self.frame1.rowconfigure(0,weight=3,minsize=100)
+        # self.frame1.rowconfigure(1,weight=1,minsize=50)
+        # self.frame1.rowconfigure(2,weight=1,minsize=50)
+        # self.frame1.rowconfigure(3,weight=1,minsize=50)
+        # self.frame1.rowconfigure(4,weight=1,minsize=50)
+        # self.frame1.rowconfigure(5,weight=1,minsize=50)
+        # self.frame1.rowconfigure(6,weight=1,minsize=50)
         # if self.algos.get() == 'Linear Regression':
         frame_label = tk.Label(master=self.frame1, text="Hyperparameters=>")
         frame_label.config(font=("Courier", 20))
@@ -299,15 +323,15 @@ class TrainWindow:
 
         self.clear()
         #frame 1
-        self.frame1.rowconfigure(0,weight=3,minsize=100)
-        self.frame1.rowconfigure(1,weight=1,minsize=50)
-        self.frame1.rowconfigure(2,weight=1,minsize=50)
-        self.frame1.rowconfigure(3,weight=1,minsize=50)
-        self.frame1.rowconfigure(4,weight=1,minsize=50)
-        self.frame1.rowconfigure(5,weight=1,minsize=50)
-        self.frame1.rowconfigure(6,weight=1,minsize=50)
-        self.frame1.rowconfigure(7,weight=1,minsize=50)
-        self.frame1.rowconfigure(8,weight=1,minsize=50)
+        # self.frame1.rowconfigure(0,weight=3,minsize=100)
+        # self.frame1.rowconfigure(1,weight=1,minsize=50)
+        # self.frame1.rowconfigure(2,weight=1,minsize=50)
+        # self.frame1.rowconfigure(3,weight=1,minsize=50)
+        # self.frame1.rowconfigure(4,weight=1,minsize=50)
+        # self.frame1.rowconfigure(5,weight=1,minsize=50)
+        # self.frame1.rowconfigure(6,weight=1,minsize=50)
+        # self.frame1.rowconfigure(7,weight=1,minsize=50)
+        # self.frame1.rowconfigure(8,weight=1,minsize=50)
         frame_label = tk.Label(master=self.frame1, text="Hyperparameters=>")
         frame_label.config(font=("Courier", 20))
         frame_label.grid(row=0,column=0, sticky='n')
@@ -368,7 +392,115 @@ class TrainWindow:
         self.f1_label.config(font=(10))
         self.f1_label.grid(row=5,column=0)
 
+    def load_gui_deepnet(self):
+        self.clear()
+        #frame 1
+        # self.frame1.rowconfigure(0,weight=3,minsize=100)
+        # self.frame1.rowconfigure(1,weight=1,minsize=50)
+        # self.frame1.rowconfigure(2,weight=1,minsize=50)
+        # self.frame1.rowconfigure(3,weight=1,minsize=50)
+        # self.frame1.rowconfigure(4,weight=1,minsize=50)
+        # self.frame1.rowconfigure(5,weight=1,minsize=50)
+        # self.frame1.rowconfigure(6,weight=1,minsize=50)
+        # self.frame1.rowconfigure(7,weight=1,minsize=50)
+        # self.frame1.rowconfigure(8,weight=1,minsize=50)
+        # self.frame1.rowconfigure(9,weight=1,minsize=50)
+        # self.frame1.rowconfigure(10,weight=1,minsize=50)
+        # self.frame1.rowconfigure(11,weight=1,minsize=50)
+        # self.frame1.rowconfigure(12,weight=1,minsize=50)
+        # self.frame1.rowconfigure(13,weight=1,minsize=50)
+        # self.frame1.rowconfigure(14,weight=1,minsize=50)
+        # self.frame1.rowconfigure(15,weight=1,minsize=50)
+        # self.frame1.rowconfigure(16,weight=1,minsize=50)
+        frame_label = tk.Label(master=self.frame1, text="Hyperparameters=>")
+        frame_label.config(font=("Courier", 20))
+        frame_label.grid(row=0,column=0, sticky='n')
 
+        layer_label = tk.Label(master=self.frame1, text="Layer1,Layer2,Layer3(In this format)")
+        layer_label.config(font=(10))
+        layer_label.grid(row=17,column=0)
+        self.layer_entry = tk.Entry(master=self.frame1)
+        self.layer_entry.grid(row=18,column=0)
+
+        epoch_label = tk.Label(master=self.frame1, text="Epoch:")
+        epoch_label.config(font=(10))
+        epoch_label.grid(row=1,column=0)
+        self.epoch_entry = tk.Entry(master=self.frame1)
+        self.epoch_entry.grid(row=2,column=0)
+
+        opt_label = tk.Label(master=self.frame1, text="Optimizer:")
+        opt_label.config(font=(10))
+        opt_label.grid(row=3,column=0)
+        self.opt_entry = tk.Entry(master=self.frame1)
+        self.opt_entry.grid(row=4,column=0)
+
+        alpha_label = tk.Label(master=self.frame1, text="Learning rate:")
+        alpha_label.config(font=(10))
+        alpha_label.grid(row=5,column=0)
+        self.alpha_entry= tk.Entry(master=self.frame1)
+        self.alpha_entry.grid(row=6,column=0)
+
+        thresh_label = tk.Label(master=self.frame1, text="Threshold:")
+        thresh_label.config(font=(10))
+        thresh_label.grid(row=7,column=0)
+        self.thresh = tk.Entry(master=self.frame1)
+        self.thresh.grid(row=8,column=0)
+
+        batch_label = tk.Label(master=self.frame1, text="Mini Batch Size:")
+        batch_label.config(font=(10))
+        batch_label.grid(row=9,column=0)
+        self.batch_entry = tk.Entry(master=self.frame1)
+        self.batch_entry.grid(row=10,column=0)
+
+        beta_label = tk.Label(master=self.frame1, text="Beta(momentum):")
+        beta_label.config(font=(10))
+        beta_label.grid(row=11,column=0)
+        self.beta_entry = tk.Entry(master=self.frame1)
+        self.beta_entry.grid(row=12,column=0)
+
+        beta1_label = tk.Label(master=self.frame1, text="Beta1(adam):")
+        beta1_label.config(font=(10))
+        beta1_label.grid(row=13,column=0)
+        self.beta1_entry = tk.Entry(master=self.frame1)
+        self.beta1_entry.grid(row=14,column=0)
+
+        beta2_label = tk.Label(master=self.frame1, text="Beta2(adam):")
+        beta2_label.config(font=(10))
+        beta2_label.grid(row=15,column=0)
+        self.beta2_entry = tk.Entry(master=self.frame1)
+        self.beta2_entry.grid(row=16,column=0)
+
+        #frame 3
+        self.frame3.rowconfigure(0,weight=3,minsize=100)
+        self.frame3.rowconfigure(1,weight=1,minsize=50)
+        self.frame3.rowconfigure(2,weight=1,minsize=50)
+        # self.frame3.rowconfigure(3,weight=1,minsize=50)
+        # self.frame3.rowconfigure(4,weight=1,minsize=50)
+        # self.frame3.rowconfigure(5,weight=1,minsize=50)
+        # self.frame3.rowconfigure(3,weight=1,minsize=50)
+        frame3_label = tk.Label(master=self.frame3, text="Performance Analysis=>")
+        frame3_label.config(font=("Courier", 20))
+        frame3_label.grid(row=0,column=0, sticky='n')
+
+        self.trainacc_label = tk.Label(master=self.frame3, text="Train Accuracy:")
+        self.trainacc_label.config(font=(10))
+        self.trainacc_label.grid(row=1,column=0)
+
+        self.testacc_label = tk.Label(master=self.frame3, text="Test Accuracy:")
+        self.testacc_label.config(font=(10))
+        self.testacc_label.grid(row=2,column=0)
+
+        # self.prec_label = tk.Label(master=self.frame3, text="Precision(Test set):")
+        # self.prec_label.config(font=(10))
+        # self.prec_label.grid(row=3,column=0)
+
+        # self.recall_label = tk.Label(master=self.frame3, text="Recall(Test set):")
+        # self.recall_label.config(font=(10))
+        # self.recall_label.grid(row=4,column=0)
+
+        # self.f1_label = tk.Label(master=self.frame3, text="F1 Score(Test set):")
+        # self.f1_label.config(font=(10))
+        # self.f1_label.grid(row=5,column=0)
 
     def animate(self, i):
         if len(self.epoch_list)!=0 and len(self.cost_list)!=0:
@@ -389,6 +521,8 @@ class TrainWindow:
             self.start_train_linreg()
         elif algo == 'Logistic Regression':
             self.start_train_logreg()
+        elif algo == 'Deep Neural Network':
+            self.start_train_deepnet()
         
     def start_train_linreg(self):
         self.save_btn['state'] = "disabled"
@@ -502,6 +636,115 @@ class TrainWindow:
         
                      
            
+    def start_train_deepnet(self):
+        self.save_btn['state'] = "disabled"
+        # flag = 0
+        try:
+            beta = float(self.beta_entry.get())
+        except:
+            beta = 0.9
+        try:
+            beta1 = float(self.beta1_entry.get())
+        except:
+            beta1 = 0.9
+        try:
+            beta2 = float(self.beta2_entry.get())
+        except:
+            beta2 = 0.999
+        epsilon = 1e-8
+
+        try:
+
+            deep_net = DeepNeuralNet(self.train_df, self.test_df)
+            self.deepnet_model = deep_net
+            
+            epoch = int(self.epoch_entry.get())
+            alpha = float(self.alpha_entry.get())
+            thresh = float(self.thresh.get())
+            layers = self.layer_entry.get()
+            opt = self.opt_entry.get()
+            mini_batch = int(self.batch_entry.get())
+
+            self.cost_list = []
+            self.epoch_list = []
+
+            layers = layers.split(',')
+            layers_dims = [deep_net.train_x.shape[0], int(layers[0]), int(layers[1]), int(layers[2])]
+
+            if opt == "gd" or opt=="momentum" or opt=="adam":
+                pass
+            else:
+                raise Exception("Optimizer value doesnot matches") 
+            #####################
+            L = len(layers_dims)                               
+            t = 0                                               
+            m = deep_net.train_x.shape[1]                  
+            
+
+            parameters = initialize_parameters(layers_dims)
+
+
+            if opt == "gd":
+                pass 
+            elif opt == "momentum":
+                v = deep_net.initialize_velocity(parameters)
+            elif opt == "adam":
+                v, s = deep_net.initialize_adam(parameters)
+            
+            
+            for i in range(epoch):
+                
+            
+                minibatches = deep_net.random_mini_batches(deep_net.train_x, deep_net.train_y, mini_batch)
+                cost_total = 0
+                
+                for minibatch in minibatches:
+
+                
+                    (minibatch_X, minibatch_Y) = minibatch
+
+                
+                    a3, caches = forward_propagation(minibatch_X, parameters)
+
+                
+                    cost_total += compute_cost(a3, minibatch_Y)
+
+                
+                    grads = backward_propagation(minibatch_X, minibatch_Y, caches)
+
+                
+                    if opt == "gd":
+                        parameters = deep_net.update_parameters_with_gd(parameters, grads, alpha)
+                    elif opt == "momentum":
+                        parameters, v = deep_net.update_parameters_with_momentum(parameters, grads, v, beta, alpha)
+                    elif opt == "adam":
+                        t = t + 1 
+                        parameters, v, s = deep_net.update_parameters_with_adam(parameters, grads, v, s,
+                                                                    t, alpha, beta1, beta2,  epsilon)
+                cost_avg = cost_total / m
+                
+                self.progress['value'] = int((i/epoch)*100)
+                self.frame5.update_idletasks() 
+                self.cost_list.append(cost_avg)
+                self.epoch_list.append(i)
+                        
+            #####################
+            self.param = parameters
+            ypred_train = predict(deep_net.train_x,deep_net.train_y,parameters,thresh)
+            ypred_test =  predict(deep_net.test_x,deep_net.test_y,parameters, thresh)
+            accuracy_train = ypred_train*100
+            accuracy_test = ypred_test*100
+
+            self.testacc_label['text'] = f'Test Accuracy:{accuracy_test}'
+            self.trainacc_label['text'] = f'Train Accuracy:{accuracy_train}'
+            
+            messagebox.showinfo('Success','Model Trained Successfully!!')
+            self.save_btn['state'] = "normal"
+        except:
+
+            messagebox.showerror('Error', 'Model Training Failed(Check your hyperparameters and Input Files)')
+            self.cost_list = []
+            self.epoch_list = []
 
 
     def get_filename(self,location):
@@ -537,6 +780,22 @@ class TrainWindow:
                     pd.DataFrame(self.logistic_model.theta).to_csv(export_file_path, index=False, header=False)
                     self.logistic_model._mean.to_csv(second_file,header=False)
                     self.logistic_model._std.to_csv(third_file,header=False)
+
+            if self.algos.get() == 'Deep Neural Network':
+                export_file_path = tk.filedialog.asksaveasfilename(defaultextension='.csv')
+                if(len(export_file_path)!=0):
+                    file_name = self.get_filename(export_file_path)
+                    second_file = export_file_path[0:export_file_path.find(file_name)]
+                    second_file = second_file+f'normalization(mean)_{file_name}'
+                    third_file = export_file_path[0:export_file_path.find(file_name)]
+                    third_file = third_file+f'normalization(std)_{file_name}'
+                
+                    w = csv.writer(open(export_file_path, "w"))
+                    for key, val in self.param.items():
+                        w.writerow([key, val])
+                    self.deepnet_model._mean.to_csv(second_file,header=False)
+                    self.deepnet_model._std.to_csv(third_file,header=False)
+
             messagebox.showinfo('Success','Model Saved Successfully!!')
                 
         except:
@@ -550,12 +809,12 @@ class TrainWindow:
 
 # --- main ---
 
-if __name__ == '__main__':
-    root = tk.Tk()
-    ini = InitializeWindow(root)
-    root.mainloop()
-    if ini.validate == True:
-        root2 = tk.Tk()
-        train = TrainWindow(root2, ini.train_df, ini.crossval_df, ini.test_df)
-        anim = animation.FuncAnimation(train.f, train.animate, interval=1000)
-        root2.mainloop()
+
+root = tk.Tk()
+ini = InitializeWindow(root)
+root.mainloop()
+if ini.validate == True:
+    root2 = tk.Tk()
+    train = TrainWindow(root2, ini.train_df, ini.crossval_df, ini.test_df)
+    anim = animation.FuncAnimation(train.f, train.animate, interval=1000)
+    root2.mainloop()
