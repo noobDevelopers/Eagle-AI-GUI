@@ -15,9 +15,10 @@
   </p>
 <br>
 
-## Intended audience
-  This application is made for learners to visualize how changing different hyper-parameters could affect accuracy of the model.
-  This applications is can also be used for selecting the base model of a large project
+## TOOLS/LANGUAGES USED
+  GUI is made with tkinter a python based GUI framework <a href='https://realpython.com/python-gui-tkinter/'>see tutorial here</a>
+  
+  ML algorithms are coded from scratch based on lectures of adrew ng. course <a href='https://www.coursera.org/learn/machine-learning/home/welcome'>see course here</a>
   
 ## Installation
   **Step-1:** Download and extract the files
