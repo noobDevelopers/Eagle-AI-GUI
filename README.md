@@ -1,11 +1,19 @@
-</p>
+<p>
 <h1 align="center">
   Eagle-AI-GUI
 </h1>
  <h3 align="center">
   GUI for Machine-Learning Algorithms
-</h3>
- 
+  </h3>
+  
+![GitHub issues](https://img.shields.io/github/issues/noobDevelopers/Eagle-AI-GUI)
+![GitHub Hacktoberfest combined status](https://img.shields.io/github/hacktoberfest/2020/noobDevelopers/Eagle-AI-GUI)
+![Python Version](https://img.shields.io/badge/python-v3.7-blue)
+![GUI TKINTER](https://img.shields.io/badge/GUI-tkinter-blue)
+![Machine Learning](https://img.shields.io/badge/-Machine%20Learning-yellow)
+![Deep Learning](https://img.shields.io/badge/-Deep%20Learning-yellowgreen)
+
+  
 </p>
 <br>
 <p align="center">
@@ -135,3 +143,20 @@
     <a>
     <img src="./img/7.png" width="500" height ="200"/>
     </a>
+    
+  # Getting Started
+
+   1.Fork it!
+
+   2.Clone the forked repository to local system.
+   
+   3.Read issues and solve it, or add your own issues 😊
+
+   4.Commit your changes: git commit -m 'Add some feature'.
+
+   5.Push to the <a href="">feature</a> branch
+
+   7.Submit a pull request 😄
+
+
+### If you had fun, consider to give a star ⭐ to this repository
