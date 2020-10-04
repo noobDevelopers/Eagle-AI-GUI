@@ -144,7 +144,7 @@
     <img src="./img/7.png" width="500" height ="200"/>
     </a>
     
-  # Getting Started
+ # Contributions
 
    1.Fork it!
 
